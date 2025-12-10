@@ -1,4 +1,3 @@
-
 import { Message, User, ChatEventPayload } from "../types";
 
 // CLAVES DE ALMACENAMIENTO LOCAL
@@ -22,9 +21,14 @@ export const db = {
   },
 
   saveUser: (user: User) => {
-    const users = db.getUsers();
-    users[user.name.toLowerCase()] = user;
-    localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
+    try {
+        const users = db.getUsers();
+        users[user.name.toLowerCase()] = user;
+        localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
+    } catch (error) {
+        console.error("Error guardando usuario", error);
+        alert("Espacio lleno. No se pudo guardar el usuario.");
+    }
   },
 
   findUser: (name: string): User | undefined => {
@@ -34,12 +38,16 @@ export const db = {
 
   // Función especial para actualizar usuarios (usada por comandos admin)
   updateUserCoins: (targetName: string, coins: number): User | null => {
-    const users = db.getUsers();
-    const key = targetName.toLowerCase();
-    if (users[key]) {
-      users[key].coins = coins;
-      localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
-      return users[key];
+    try {
+        const users = db.getUsers();
+        const key = targetName.toLowerCase();
+        if (users[key]) {
+          users[key].coins = coins;
+          localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
+          return users[key];
+        }
+    } catch (error) {
+        console.error("Error actualizando monedas", error);
     }
     return null;
   },
@@ -59,6 +67,15 @@ export const db = {
       localStorage.setItem(STORAGE_KEYS.MESSAGES, JSON.stringify(newHistory));
     } catch (error) {
       console.error("Storage full or error", error);
+      // Opcional: intentar guardar sin la imagen si falla
+      if (msg.attachment) {
+          const simpleMsg = { ...msg, content: "⚠️ (Imagen no guardada por falta de espacio)", attachment: undefined };
+           try {
+               const msgs = db.getMessages();
+               const newHistory = [...msgs, simpleMsg].slice(-50);
+               localStorage.setItem(STORAGE_KEYS.MESSAGES, JSON.stringify(newHistory));
+           } catch (e) {}
+      }
     }
   }
 };
