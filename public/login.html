@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Login - Chat</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="auth">
+    <h2>Iniciar sesión</h2>
+    <form id="loginForm">
+      <input name="username" placeholder="Usuario" required>
+      <input name="password" type="password" placeholder="Contraseña" required>
+      <button type="submit">Ingresar</button>
+    </form>
+    <a href="/register.html">Crear cuenta</a>
+  </div>
+  <script>
+  document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const body = new URLSearchParams();
+    body.append('username', fd.get('username'));
+    body.append('password', fd.get('password'));
+    const res = await fetch('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body.toString() });
+    const j = await res.json();
+    if (j.ok) location.href = '/chat.html'; else alert('Error al iniciar sesión');
+  });
+  </script>
+  <script src="/js/cursor.js"></script>
+</body>
+</html>

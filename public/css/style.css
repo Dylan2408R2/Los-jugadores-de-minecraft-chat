@@ -1,0 +1,18 @@
+body { font-family: Arial, sans-serif; margin:0; background:#f5f7fb; }
+.center{ max-width:600px; margin:120px auto; text-align:center }
+.btn{ display:inline-block; padding:10px 18px; background:#2ecc71; color:white; text-decoration:none; border-radius:6px; margin:6px }
+.auth{ max-width:360px; margin:80px auto; padding:20px; background:white; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.06) }
+.auth input{ display:block; width:100%; padding:10px; margin:10px 0 }
+.chat-app{ display:flex; height:100vh }
+.sidebar{ width:260px; background:#fff; padding:16px; box-shadow:2px 0 10px rgba(0,0,0,0.04); }
+.main{ flex:1; display:flex; flex-direction:column }
+.messages{ flex:1; padding:16px; overflow:auto }
+.msg{ margin-bottom:12px }
+.msg .avatar{ width:36px; height:36px; border-radius:50%; display:inline-block; vertical-align:middle; margin-right:8px }
+.msgForm{ display:flex; padding:12px; background:#fff; border-top:1px solid #eee }
+.msgForm input{ flex:1; padding:10px; }
+#profileBox{ text-align:center; margin-bottom:12px }
+#users{ margin-top:12px }
+
+/* custom cursor visuals */
+.cursor { position: fixed; pointer-events: none; width:18px; height:18px; border-radius:50%; transform:translate(-50%,-50%); z-index:9999; mix-blend-mode:exclusion; background:rgba(0,0,0,0.7) }

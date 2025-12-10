@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Chat - Los jugadores</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="chat-app">
+    <aside class="sidebar">
+      <div id="profileBox"></div>
+      <form id="profileForm" enctype="multipart/form-data">
+        <input type="file" name="avatar" accept="image/*">
+        <input type="color" name="color">
+        <button type="submit">Guardar</button>
+      </form>
+      <button id="logoutBtn">Cerrar sesión</button>
+      <div id="users"></div>
+    </aside>
+    <main class="main">
+      <div id="messages" class="messages"></div>
+      <form id="msgForm" class="msgForm">
+        <input id="msgInput" autocomplete="off" placeholder="Escribe un mensaje...">
+        <button>Enviar</button>
+      </form>
+    </main>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/cursor.js"></script>
+</body>
+</html>
